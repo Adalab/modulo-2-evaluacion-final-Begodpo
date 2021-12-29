@@ -20,12 +20,15 @@ function handleClickBtn(event) {
     });
 }
 
+// paint series
+
 function getSeriesHtml(serie) {
   let htmlCode = "";
   htmlCode += `<li>
-    <img src="${serie.image_url}" alt="" />
+    <img src="${serie.image_url}" alt="${serie.title}" />
     <h3>${serie.title}</h3>
-  </li>`;
+    </li>`;
+
   return htmlCode;
 }
 
@@ -33,10 +36,15 @@ function paintSeries() {
   let seriesCode = "";
   for (const serie of series) {
     seriesCode += getSeriesHtml(serie);
+    if (serie.image_url === null) {
+      seriesListSection.innerHTML += `<li>
+      <img src="https://via.placeholder.com/210x295/ffffff/666666/?text=${serie.type}" alt="${serie.title}" />
+      <h3>${serie.title}</h3>
+      </li>`;
+    } else {
+      seriesListSection.innerHTML = seriesCode;
+    }
   }
-  seriesListSection.innerHTML = seriesCode;
 }
-
-// paint series
 
 searchBtn.addEventListener("click", handleClickBtn);
