@@ -2,12 +2,11 @@
 
 const textInput = document.querySelector(".js-input");
 const searchBtn = document.querySelector(".js-searchBtn");
-const resetBtn = document.querySelector(".js-resetBtn");
 const seriesListSection = document.querySelector(".js-results");
-
-// get data from Api
+const favoritesListSection = document.querySelector(".js-favorites");
 
 let series = [];
+let favoriteSeries = [];
 
 function handleClickBtn(event) {
   event.preventDefault();
@@ -24,7 +23,7 @@ function handleClickBtn(event) {
 
 function getSeriesHtml(serie) {
   let htmlCode = "";
-  htmlCode += `<li>
+  htmlCode += `<li class="js-list" data-id="${serie.mal_id}">
     <img src="${serie.image_url}" alt="${serie.title}" />
     <h3>${serie.title}</h3>
     </li>`;
@@ -34,8 +33,10 @@ function getSeriesHtml(serie) {
 
 function paintSeries() {
   let seriesCode = "";
+
   for (const serie of series) {
     seriesCode += getSeriesHtml(serie);
+
     if (serie.image_url === null) {
       seriesListSection.innerHTML += `<li>
       <img src="https://via.placeholder.com/210x295/ffffff/666666/?text=${serie.type}" alt="${serie.title}" />
@@ -45,6 +46,51 @@ function paintSeries() {
       seriesListSection.innerHTML = seriesCode;
     }
   }
+
+  const addToFavoritesList = document.querySelectorAll(".js-list");
+  console.log(addToFavoritesList);
+
+  for (const addToFavorites of addToFavoritesList) {
+    addToFavorites.addEventListener("click", handleClickToFavorites);
+  }
+}
+
+function handleClickToFavorites(event) {
+  /* 
+  console.dir(event.currentTarget);
+  console.dir(event.currentTarget.dataset.id);
+*/
+  const selectedFavoriteSerie = parseInt(event.currentTarget.dataset.id);
+
+  console.log(`Añadiendo a favoritos ${selectedFavoriteSerie}`);
+
+  console.table(series);
+
+  const selectedSerieData = series.find(
+    (row) => row.mal_id === selectedFavoriteSerie
+  );
+  console.log(selectedSerieData);
+
+  favoriteSeries.push(selectedSerieData);
+
+  paintFavoriteList();
+}
+
+function paintFavoriteList() {
+  favoritesListSection.innerHTML = "";
+
+  for (const favItem of favoriteSeries) {
+    getFavItem(favItem);
+  }
+}
+
+function getFavItem(favItem) {
+  favoritesListSection.innerHTML += `
+    <li class="js-list" data-id="${favItem.mal_id}">
+    <img src="${favItem.image_url}" alt="${favItem.title}" />
+    <h3>${favItem.title}</h3>
+    </li>
+    `;
 }
 
 searchBtn.addEventListener("click", handleClickBtn);
