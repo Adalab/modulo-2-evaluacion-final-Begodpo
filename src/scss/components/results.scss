@@ -1,0 +1,19 @@
+.resultsSection {
+  background-color: white;
+  width: 65%;
+  margin-right: 20px;
+  margin-left: 40px;
+  border: 2px white solid;
+  border-radius: 10px;
+  &__list {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 5px;
+  }
+}
+.resultsListElem {
+  background-color: black;
+  list-style: none;
+  color: rgb(204, 200, 200);
+}

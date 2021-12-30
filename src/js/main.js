@@ -10,7 +10,7 @@ let favoriteSeries = [];
 
 function handleClickBtn(event) {
   event.preventDefault();
-  fetch(`https://api.jikan.moe/v3/search/anime?q=${textInput.value}`)
+  fetch(`https://api.jikan.moe/v3/search/anime?q=${textInput.value}&limit=8`)
     .then((response) => response.json())
     .then((data) => {
       series = data.results;
@@ -23,7 +23,7 @@ function handleClickBtn(event) {
 
 function getSeriesHtml(serie) {
   let htmlCode = "";
-  htmlCode += `<li class="js-list" data-id="${serie.mal_id}">
+  htmlCode += `<li class="resultsListElem js-list" data-id="${serie.mal_id}">
     <img src="${serie.image_url}" alt="${serie.title}" />
     <h3>${serie.title}</h3>
     </li>`;
@@ -86,9 +86,9 @@ function paintFavoriteList() {
 
 function getFavItem(favItem) {
   favoritesListSection.innerHTML += `
-    <li class="js-list" data-id="${favItem.mal_id}">
+    <li class="favList js-list" data-id="${favItem.mal_id}">
     <img src="${favItem.image_url}" alt="${favItem.title}" />
-    <h3>${favItem.title}</h3>
+    <h3 class="favSeriesTitle">${favItem.title}</h3>
     </li>
     `;
 }

@@ -1,15 +1,21 @@
-<h1 class="title">Buscador de Series de Anime</h1>
 <form class="form">
-  <input id="serie" class="js-input" type="text" placeholder="Serie" />
-  <button type="submit" class="js-searchBtn">Buscar</button>
-  <button type="submit" class="js-resetBtn">Reset</button>
+  <input
+    id="serie"
+    class="form__input js-input"
+    type="text"
+    placeholder="Introduce aquí tu serie"
+  />
+  <button type="submit" class="form__button js-searchBtn">Buscar</button>
+  <button type="submit" class="form__button js-resetBtn">Reset</button>
 </form>
 
-<section>
-  <h2>Series favoritas</h2>
-  <ul class="js-favorites"></ul>
-</section>
-<section>
-  <h2>Resultados</h2>
-  <ul class="js-results"></ul>
-</section>
+<div class="seriesContainer">
+  <section class="favoritesSection">
+    <h2 class="favoritesSection__title">Series favoritas</h2>
+    <ul class="favoritesSection__list js-favorites"></ul>
+  </section>
+  <section class="resultsSection">
+    <h2 class="resultsSection__title">Resultados</h2>
+    <ul class="resultsSection__list js-results"></ul>
+  </section>
+</div>

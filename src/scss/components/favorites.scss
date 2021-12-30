@@ -1,0 +1,17 @@
+.favoritesSection {
+  background-color: pink;
+  width: 35%;
+  border-radius: 10px;
+  &__list {
+    list-style: none;
+    background-color: black;
+  }
+  &__title {
+  }
+}
+.favList {
+  display: flex;
+}
+.favSeriesTitle {
+  color: pink;
+}
