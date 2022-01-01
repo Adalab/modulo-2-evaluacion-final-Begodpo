@@ -1,19 +1,29 @@
 .resultsSection {
-  background-color: white;
   width: 65%;
+  height: 100%;
   margin-right: 20px;
   margin-left: 40px;
-  border: 2px white solid;
+  border: 4px white solid;
   border-radius: 10px;
+  height: 100vh;
+  overflow: auto;
   &__list {
-    height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5px;
+    column-gap: 10px;
+    :hover {
+      border: 3px rgb(22, 236, 226) solid;
+      color: rgb(22, 236, 226);
+    }
+  }
+  &__title {
+    background-color: white;
   }
 }
 .resultsListElem {
   background-color: black;
   list-style: none;
   color: rgb(204, 200, 200);
+  display: flex;
+  flex-direction: column;
 }

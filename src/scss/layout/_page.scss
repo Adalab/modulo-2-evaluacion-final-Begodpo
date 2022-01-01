@@ -6,3 +6,11 @@ body {
   margin: 100px 0px 0px 20px;
   height: 90vh;
 }
+
+.hidden {
+  display: none;
+}
+.changedColour {
+  border: 3px rgb(22, 236, 226) solid;
+  color: rgb(22, 236, 226);
+}

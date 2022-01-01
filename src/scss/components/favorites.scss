@@ -1,17 +1,34 @@
 .favoritesSection {
-  background-color: pink;
   width: 35%;
   border-radius: 10px;
+  border: 4px pink solid;
+  height: 100vh;
+  overflow: auto;
   &__list {
     list-style: none;
     background-color: black;
   }
   &__title {
+    background-color: pink;
   }
 }
 .favList {
   display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .favSeriesTitle {
   color: pink;
+  font-size: 16px;
+}
+.cross {
+  background-color: pink;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+  &__text {
+    text-align: center;
+    font-weight: bold;
+  }
 }

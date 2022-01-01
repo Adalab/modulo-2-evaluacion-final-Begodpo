@@ -5,8 +5,12 @@ const searchBtn = document.querySelector(".js-searchBtn");
 const seriesListSection = document.querySelector(".js-results");
 const favoritesListSection = document.querySelector(".js-favorites");
 
+// Variables globales
+
 let series = [];
 let favoriteSeries = [];
+
+// Buscar en el Api al hacer clik en el botón de buscar
 
 function handleClickBtn(event) {
   event.preventDefault();
@@ -19,15 +23,14 @@ function handleClickBtn(event) {
     });
 }
 
-// paint series
+// Pintar series
 
 function getSeriesHtml(serie) {
   let htmlCode = "";
-  htmlCode += `<li class="resultsListElem js-list" data-id="${serie.mal_id}">
-    <img src="${serie.image_url}" alt="${serie.title}" />
+  htmlCode += `<li class="resultsListElem js-list" data-id="${serie.mal_id}"> 
+    <img src="${serie.image_url}" alt="${serie.title}" /> 
     <h3>${serie.title}</h3>
     </li>`;
-
   return htmlCode;
 }
 
@@ -47,6 +50,8 @@ function paintSeries() {
     }
   }
 
+  // Añadir a favoritos
+
   const addToFavoritesList = document.querySelectorAll(".js-list");
   console.log(addToFavoritesList);
 
@@ -55,26 +60,39 @@ function paintSeries() {
   }
 }
 
+// Añadir a favoritos cuando se haga click
+
 function handleClickToFavorites(event) {
-  /* 
-  console.dir(event.currentTarget);
-  console.dir(event.currentTarget.dataset.id);
-*/
   const selectedFavoriteSerie = parseInt(event.currentTarget.dataset.id);
 
   console.log(`Añadiendo a favoritos ${selectedFavoriteSerie}`);
-
-  console.table(series);
+  console.log(series);
+  console.log(favoriteSeries);
 
   const selectedSerieData = series.find(
     (row) => row.mal_id === selectedFavoriteSerie
   );
-  console.log(selectedSerieData);
+  const favoriteSerieData = favoriteSeries.find(
+    (row) => row.mal_id === selectedFavoriteSerie
+  );
+  console.log({ favoriteSerieData });
 
-  favoriteSeries.push(selectedSerieData);
+  if (favoriteSerieData === undefined) {
+    // La serie seleccionada no está en la lista de favoritos
+    // La añadimos con el push que teníamos debajo
+    favoriteSeries.push(selectedSerieData); // Ahora si pincho en la misma serie, como la ha encontrado ya no la añade
+  } else {
+    // La serie seleccionada sí está en la lista de favoritos
+    // La quitamos del listado
+    favoriteSeries.splice(selectedSerieData);
+  }
 
   paintFavoriteList();
+
+  event.currentTarget.classList.toggle("changedColour");
 }
+
+// Pintar la lista de favoritos
 
 function paintFavoriteList() {
   favoritesListSection.innerHTML = "";
@@ -89,7 +107,8 @@ function getFavItem(favItem) {
     <li class="favList js-list" data-id="${favItem.mal_id}">
     <img src="${favItem.image_url}" alt="${favItem.title}" />
     <h3 class="favSeriesTitle">${favItem.title}</h3>
-    </li>
+    <div class="cross"><p class="cross__text">x</p></div>
+    </li>    
     `;
 }
 
