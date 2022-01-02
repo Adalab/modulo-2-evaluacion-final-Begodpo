@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 "use strict";
 
 const textInput = document.querySelector(".js-input");
@@ -18,10 +19,10 @@ function handleClickBtn(event) {
     .then((response) => response.json())
     .then((data) => {
       series = data.results;
-      console.log(series);
       paintSeries();
     });
 }
+searchBtn.addEventListener("click", handleClickBtn);
 
 // Pintar series
 
@@ -53,7 +54,6 @@ function paintSeries() {
   // Añadir a favoritos
 
   const addToFavoritesList = document.querySelectorAll(".js-list");
-  console.log(addToFavoritesList);
 
   for (const addToFavorites of addToFavoritesList) {
     addToFavorites.addEventListener("click", handleClickToFavorites);
@@ -65,10 +65,6 @@ function paintSeries() {
 function handleClickToFavorites(event) {
   const selectedFavoriteSerie = parseInt(event.currentTarget.dataset.id);
 
-  console.log(`Añadiendo a favoritos ${selectedFavoriteSerie}`);
-  console.log(series);
-  console.log(favoriteSeries);
-
   const selectedSerieData = series.find(
     (row) => row.mal_id === selectedFavoriteSerie
   );
@@ -78,18 +74,18 @@ function handleClickToFavorites(event) {
   console.log({ favoriteSerieData });
 
   if (favoriteSerieData === undefined) {
-    // La serie seleccionada no está en la lista de favoritos
-    // La añadimos con el push que teníamos debajo
-    favoriteSeries.push(selectedSerieData); // Ahora si pincho en la misma serie, como la ha encontrado ya no la añade
+    favoriteSeries.push(selectedSerieData);
+    event.currentTarget.classList.add("changedColour");
   } else {
-    // La serie seleccionada sí está en la lista de favoritos
-    // La quitamos del listado
-    favoriteSeries.splice(selectedSerieData);
+    favoriteSeries = favoriteSeries.filter(
+      (row) => row.mal_id !== selectedFavoriteSerie
+    );
+    event.currentTarget.classList.remove("changedColour");
   }
 
-  paintFavoriteList();
+  setFavoriteSerieInLocalStorage();
 
-  event.currentTarget.classList.toggle("changedColour");
+  paintFavoriteList();
 }
 
 // Pintar la lista de favoritos
@@ -100,6 +96,13 @@ function paintFavoriteList() {
   for (const favItem of favoriteSeries) {
     getFavItem(favItem);
   }
+  const allRemoveBtns = document.querySelectorAll(".js-removeSerie");
+
+  for (const removeBtn of allRemoveBtns) {
+    // allRemoveBtns es un array, por eso tengo que hacer un bucle for
+    removeBtn.addEventListener("click", handleClickRemoveBtn);
+  }
+  setFavoriteSerieInLocalStorage();
 }
 
 function getFavItem(favItem) {
@@ -107,9 +110,44 @@ function getFavItem(favItem) {
     <li class="favList js-list" data-id="${favItem.mal_id}">
     <img src="${favItem.image_url}" alt="${favItem.title}" />
     <h3 class="favSeriesTitle">${favItem.title}</h3>
-    <div class="cross"><p class="cross__text">x</p></div>
+    <div class="cross js-removeSerie" data-id="${favItem.mal_id}"><p class="cross__text">x</p></div>
     </li>    
     `;
 }
 
-searchBtn.addEventListener("click", handleClickBtn);
+// Quitar de favoritos al hacer click en el botoncito
+
+function handleClickRemoveBtn(event) {
+  const selectedFavoriteSerie = parseInt(event.currentTarget.dataset.id);
+
+  const favoriteSerieData = favoriteSeries.find(
+    (row) => row.mal_id === selectedFavoriteSerie
+  );
+
+  if (favoriteSerieData.mal_id === selectedFavoriteSerie) {
+    favoriteSeries = favoriteSeries.filter(
+      (row) => row.mal_id !== selectedFavoriteSerie
+    );
+  }
+  setFavoriteSerieInLocalStorage();
+  paintFavoriteList();
+}
+
+// LocalStorage en Favoritos
+
+function setFavoriteSerieInLocalStorage() {
+  localStorage.setItem("serie-fav", JSON.stringify(favoriteSeries));
+}
+
+function getSerieFromLocalStorage() {
+  const savedSerieContent = localStorage.getItem("serie-fav");
+  if (savedSerieContent === null) {
+    favoriteSeries = [];
+  } else {
+    favoriteSeries = JSON.parse(savedSerieContent);
+  }
+
+  paintFavoriteList();
+}
+
+getSerieFromLocalStorage();
