@@ -5,6 +5,7 @@ const textInput = document.querySelector(".js-input");
 const searchBtn = document.querySelector(".js-searchBtn");
 const seriesListSection = document.querySelector(".js-results");
 const favoritesListSection = document.querySelector(".js-favorites");
+const resetBtn = document.querySelector(".js-resetBtn");
 
 // Variables globales
 
@@ -99,7 +100,6 @@ function paintFavoriteList() {
   const allRemoveBtns = document.querySelectorAll(".js-removeSerie");
 
   for (const removeBtn of allRemoveBtns) {
-    // allRemoveBtns es un array, por eso tengo que hacer un bucle for
     removeBtn.addEventListener("click", handleClickRemoveBtn);
   }
   setFavoriteSerieInLocalStorage();
@@ -151,3 +151,10 @@ function getSerieFromLocalStorage() {
 }
 
 getSerieFromLocalStorage();
+
+// Borrar favoritos con el botón de reset
+
+function handleClickResetBtn() {
+  localStorage.removeItem("serie-fav");
+}
+resetBtn.addEventListener("click", handleClickResetBtn);
