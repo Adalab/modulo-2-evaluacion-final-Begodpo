@@ -31,8 +31,8 @@ searchBtn.addEventListener("click", handleClickBtn);
 function getSeriesHtml(serie) {
   let htmlCode = "";
   htmlCode += `<li class="resultsListElem js-list" data-id="${serie.mal_id}"> 
-    <img src="${serie.image_url}" alt="${serie.title}" /> 
-    <h3>${serie.title}</h3>
+    <img class="imgResults" src="${serie.image_url}" alt="${serie.title}" /> 
+    <h3 class="titleResults">${serie.title}</h3>
     </li>`;
   return htmlCode;
 }
