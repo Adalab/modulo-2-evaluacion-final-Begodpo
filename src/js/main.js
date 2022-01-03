@@ -21,6 +21,7 @@ function handleClickBtn(event) {
     .then((data) => {
       series = data.results;
       paintSeries();
+      compareSeries();
     });
 }
 searchBtn.addEventListener("click", handleClickBtn);
@@ -51,9 +52,7 @@ function paintSeries() {
       seriesListSection.innerHTML = seriesCode;
     }
   }
-
   // Añadir a favoritos
-
   const addToFavoritesList = document.querySelectorAll(".js-list");
 
   for (const addToFavorites of addToFavoritesList) {
