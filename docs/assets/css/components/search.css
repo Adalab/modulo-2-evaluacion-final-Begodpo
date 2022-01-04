@@ -1,0 +1,1 @@
+.form{display:flex;margin-left:20px;margin-top:20px;align-items:center}.form__input{width:500px;background-color:black;padding:7px;border:2px #16ece2 solid;color:white}.form ::-moz-placeholder{color:white}.form ::placeholder{color:white}.form__button{margin-left:15px;width:70px;height:25px;border-radius:5px;background-color:#16ece2;color:white;outline:none;cursor:pointer}
