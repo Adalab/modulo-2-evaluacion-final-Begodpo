@@ -1,5 +1,5 @@
 .resultsSection {
-  width: 65%;
+  width: 70%;
   height: 100%;
   margin-right: 20px;
   margin-left: 40px;
@@ -11,7 +11,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 10px;
-    margin: 25px;
+    margin: 10px;
     :hover {
       border: 3px rgb(22, 236, 226) solid;
       color: rgb(22, 236, 226);
@@ -33,6 +33,7 @@
 }
 .imgResults {
   height: 515px;
+  width: 400px;
 }
 .titleResults {
   text-align: center;

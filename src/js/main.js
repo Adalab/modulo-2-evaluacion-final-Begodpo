@@ -16,7 +16,7 @@ let favoriteSeries = [];
 
 function handleClickBtn(event) {
   event.preventDefault();
-  fetch(`https://api.jikan.moe/v3/search/anime?q=${textInput.value}&limit=8`)
+  fetch(`https://api.jikan.moe/v3/search/anime?q=${textInput.value}`)
     .then((response) => response.json())
     .then((data) => {
       series = data.results;

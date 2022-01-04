@@ -20,4 +20,5 @@ Si quieres echar un vistazo, haz click en el siguiente enlace: [Buscador de seri
 
 #### Sobre mí:
 
-[Linkedin](www.linkedin.com/in/begoña-del-pozo-oltra-042097117)
+[Linkedin](www.linkedin.com/in/begoña-del-pozo-oltra-042097117/)
+[GitHub](https://github.com/Begodpo)
