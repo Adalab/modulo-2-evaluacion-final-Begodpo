@@ -6,6 +6,7 @@ const searchBtn = document.querySelector(".js-searchBtn");
 const seriesListSection = document.querySelector(".js-results");
 const favoritesListSection = document.querySelector(".js-favorites");
 const resetBtn = document.querySelector(".js-resetBtn");
+const seriesTitle = document.querySelector(".js-titlesBtn");
 
 // Variables globales
 
@@ -19,9 +20,9 @@ function handleClickBtn(event) {
   fetch(`https://api.jikan.moe/v3/search/anime?q=${textInput.value}`)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       series = data.results;
       paintSeries();
-      compareSeries();
     });
 }
 searchBtn.addEventListener("click", handleClickBtn);
@@ -30,10 +31,21 @@ searchBtn.addEventListener("click", handleClickBtn);
 
 function getSeriesHtml(serie) {
   let htmlCode = "";
-  htmlCode += `<li class="resultsListElem js-list" data-id="${serie.mal_id}"> 
+
+  if (serie.score > 7) {
+    htmlCode += `<li class="resultsListElem js-list" data-id="${serie.mal_id}"> 
     <img class="imgResults" src="${serie.image_url}" alt="${serie.title}" /> 
     <h3 class="titleResults">${serie.title}</h3>
+    <p>puntuación: ${serie.score}</p>    
+    <p>recomendado</p>
     </li>`;
+  } else {
+    htmlCode += `<li class="resultsListElem js-list" data-id="${serie.mal_id}"> 
+    <img class="imgResults" src="${serie.image_url}" alt="${serie.title}" /> 
+    <h3 class="titleResults">${serie.title}</h3>
+    <p>puntuación: ${serie.score}</p>    
+    </li>`;
+  }
   return htmlCode;
 }
 
@@ -108,7 +120,7 @@ function getFavItem(favItem) {
   favoritesListSection.innerHTML += `
     <li class="favList js-list" data-id="${favItem.mal_id}">
     <img src="${favItem.image_url}" alt="${favItem.title}" />
-    <h3 class="favSeriesTitle">${favItem.title}</h3>
+    <h3 class="favSeriesTitle js-favoriteTitle">${favItem.title}</h3>
     <div class="cross js-removeSerie" data-id="${favItem.mal_id}"><p class="cross__text">x</p></div>
     </li>    
     `;
@@ -157,3 +169,14 @@ function handleClickResetBtn() {
   localStorage.removeItem("serie-fav");
 }
 resetBtn.addEventListener("click", handleClickResetBtn);
+
+console.log(series);
+
+const favoriteNumber = document.querySelector(".js-favoriteNumber");
+
+function handleClickNumberBtn(event) {
+  event.preventDefault();
+  console.log(favoriteSeries.length);
+}
+
+favoriteNumber.addEventListener("click", handleClickNumberBtn);
