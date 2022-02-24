@@ -2,6 +2,8 @@
 
 Evaluación final del módulo 2 en Adalab, realizado por Begoña del Pozo.
 
+[Échale un vistazo](https://begodpo.github.io/anime-series/)
+
 Se trata de una aplicación web de búsqueda de series de anime, que nos permite des/marcar las series como favoritas y guardarlas en local storage.
 
 ## ¿Cómo funciona?
