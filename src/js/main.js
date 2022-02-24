@@ -20,7 +20,6 @@ function handleClickBtn(event) {
   fetch(`https://api.jikan.moe/v3/search/anime?q=${textInput.value}`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       series = data.results;
       paintSeries();
     });
@@ -83,7 +82,6 @@ function handleClickToFavorites(event) {
   const favoriteSerieData = favoriteSeries.find(
     (row) => row.mal_id === selectedFavoriteSerie
   );
-  console.log({ favoriteSerieData });
 
   if (favoriteSerieData === undefined) {
     favoriteSeries.push(selectedSerieData);
@@ -170,13 +168,10 @@ function handleClickResetBtn() {
 }
 resetBtn.addEventListener("click", handleClickResetBtn);
 
-console.log(series);
-
 const favoriteNumber = document.querySelector(".js-favoriteNumber");
 
 function handleClickNumberBtn(event) {
   event.preventDefault();
-  console.log(favoriteSeries.length);
 }
 
 favoriteNumber.addEventListener("click", handleClickNumberBtn);
